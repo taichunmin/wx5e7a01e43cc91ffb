@@ -1,0 +1,70 @@
+<cu-custom bgColor="bg-gradual-blue" id="home-init" isBack="{{true}}">
+    <view slot="backText">返回上级</view>
+    <view slot="content">{{ArrayList.cnTittle}}</view>
+</cu-custom>
+<scroll-view>
+    <navigator bindtap="topshopcome" class="cu-card case" data-cur="plugin" hoverClass="none" id="{{index}}" openType="navigate" wx:for="{{1}}" wx:for-item="j" wx:key="unique">
+        <view class="cu-item shadow">
+            <view class="image">
+                <image mode="widthFix" src="{{ArrayList.logoPath}}"></image>
+                <view class=" text-cut text-black customone" style="font-size: 38rpx;">{{ArrayList.tittle==''?'暂无更多':ArrayList.tittle}}</view>
+                <text class="text-gray text-sm flex justify-between customone fote-size" decode="{{true}}">
+                          系&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;列:&nbsp;&nbsp;<text class="text-black">{{options.name==''?'暂无更多':options.name}}</text>
+                </text>
+                <text class="text-gray text-sm flex justify-between customone fote-size" decode="{{true}}">
+                          发行日期:&nbsp;&nbsp;<text class="text-black">{{ArrayList.relesaseTime==''?'暂无更多':ArrayList.relesaseTime}}</text>
+                </text>
+                <text class="text-gray text-sm flex justify-between customone fote-size" decode="{{true}}">
+                          发&nbsp;&nbsp;行&nbsp;&nbsp;商:&nbsp;&nbsp;<text class="text-black">{{ArrayList.presentedBy==''?'暂无更多':ArrayList.presentedBy}}</text>
+                </text>
+            </view>
+            <view class="cu-list menu-avatar" style=" margin: 20rpx 0rpx 0rpx 0rpx;">
+                <view class="cusent">
+                    <view class="flex-sub" style="margin: 0rpx 30rpx 0 ">
+                        <view class=" ite text-gray text-sm flex justify-between fote-size">
+								{{ArrayList.description==''?'暂无更多':ArrayList.description}}
+							</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </navigator>
+</scroll-view>
+<view class="padding flex flex-direction">
+    <button bindtap="resetKey" class="cu-btn bg-blue lg">写入</button>
+</view>
+<view bindtap="hideModal" class="cu-modal {{modalName=='RadioModal'?'show':''}}">
+    <view class="cu-dialog">
+        <radio-group class="block">
+            <view class="cu-list menu text-left">
+                <view bindtap="OnclickRidio" class="cu-item" data-device-id="{{item.deviceId}}" data-name="{{item.name||item.localName}}" wx:if="{{bleItem!=null}}" wx:for="{{bleItem}}" wx:key="deviceId">
+                    <label class="flex justify-between align-center flex-sub">
+                        <view class="flex-sub">name: {{item.name}}</view>
+                        <view class="flex-sub">UUID: {{item.deviceId}}</view>
+                        <radio class="round"></radio>
+                    </label>
+                </view>
+            </view>
+        </radio-group>
+    </view>
+</view>
+<view class="cu-modal {{errorData.show}}">
+    <view bindtap="close" class="cu-dialog bg-black" style="opacity: 0.9;width:70%">
+        <view style="height: 100px;display: flex;justify-content: center;">
+            <view style="width: 70px;height: 70px;position: relative;top: 15px;">
+                <image src="/images/statuspic/{{errorData.pic}}" style="position:relative;width:100%;height:100%"></image>
+            </view>
+        </view>
+        <view class="{{errorData.disp}}">
+            <view class="flex" style="width: 70%;position: relative;left: 1%;">
+                <view class="cu-progress round">
+                    <view class="bg-green" style="width:{{tipspeed}}%;"></view>
+                </view>
+                <text class="{{tipspeed==100?'cuIcon-roundcheckfill text-green margin-left-sm':'margin-left'}}">{{tipspeed==100?'':tipspeed+'%'}}</text>
+            </view>
+        </view>
+        <view style="height: 30px;font-size: 18px;">
+            <text>{{errorData.text}}</text>
+        </view>
+    </view>
+</view>

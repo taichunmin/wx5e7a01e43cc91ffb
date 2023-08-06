@@ -1,0 +1,123 @@
+.userinfo {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-li {
+    width: 100%;
+}
+
+.userinfo-avatar {
+    border-radius: 50%;
+    height: 128rpx;
+    margin: 20rpx;
+    width: 128rpx;
+}
+
+.userinfo-nickname {
+    color: #aaa;
+}
+
+.usermotto {
+    margin-top: 200px;
+}
+
+page {
+    background: #f9f9f9;
+}
+
+.slide-image {
+    width: 100%;
+}
+
+.imagesize {
+    margin: 0rpx 0rpx 10rpx;
+}
+
+.cu-bar tabbar margin-bottom-xl bg-black {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+}
+
+.placeholder-view {
+    height: 700rpx;
+    width: 100%;
+}
+
+.cu-bar tabbar bg-white shadow foot {
+    margin-bottom: 200rpx;
+}
+
+.listcont {
+    height: 100rpx;
+    width: 100%;
+}
+
+.personalMe {
+    background-color: #fff;
+    height: 210rpx;
+    margin: 30rpx 0rpx;
+}
+
+.personalInfo {
+    float: left;
+    margin: 20rpx 0rpx 0rpx 20rpx;
+}
+
+.personalInfo text {
+    display: block;
+    height: 70rpx;
+    line-height: 70rpx;
+}
+
+.personalList {
+    background-color: #fff;
+    padding: 0rpx 20rpx;
+}
+
+.personalList view {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    height: 70rpx;
+    line-height: 70rpx;
+}
+
+.personalList span {
+    color: #ddd;
+    float: right;
+    font-size: 40rpx;
+    margin-top: -63rpx;
+}
+
+.personalList view {
+    position: relative;
+}
+
+.iconfont {
+    font-size: 14px;
+}
+
+.personalList view:before {
+    color: #b02923;
+    font-size: 20px!important;
+    font-weight: 700;
+    padding-right: 10rpx;
+    text-align: center;
+    vertical-align: top;
+}
+
+.personalList view:after {
+    border-color: #ccc;
+    border-style: solid;
+    border-width: 1px 1px 0 0;
+    content: "";
+    display: block;
+    height: 10px;
+    position: absolute;
+    right: 6px;
+    top: 10px;
+    transform: rotate(45deg);
+    width: 10px;
+}

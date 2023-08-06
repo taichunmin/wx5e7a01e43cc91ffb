@@ -1,0 +1,33 @@
+<cu-custom bgColor="bg-blue" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">云睿解码</view>
+</cu-custom>
+<view class="grid col-3 bg-white">
+    <view style="width: 12.5%" wx:if="{{index<40}}" wx:for="{{40}}" wx:key="NUMMMM">
+        <view class="bg-{{ColorList[0].name}} padding radius text-center light">
+            <text class="cuIcon-favorfill  lg text-gray"></text>
+            <view class="text-lg">{{index}}</view>
+        </view>
+    </view>
+</view>
+<view class="padding bg-white margin-top">
+    <view class="flex">
+        <view class="cu-progress round">
+            <view class="bg-green" style="width:{{loading?speed:''}}%;"></view>
+        </view>
+        <text class="{{speed==100?'cuIcon-roundcheckfill text-green margin-left-sm':'margin-left'}}">{{speed==100?'':speed+'%'}}</text>
+    </view>
+</view>
+<scroll-view class="margin-top bg-width" scrollY="true" style="height: 350rpx;">
+    <view class="cu-bar bg-white " style="width: 100%;min-height: 60rpx;" tap="ceshi" touchstart="ceshi" wx:for="{{20}}">
+        <view class="action">
+            <text class="cuIcon-title text-green"></text>
+            <text>底部操作条</text>
+        </view>
+    </view>
+</scroll-view>
+<view class="cu-list grid col-{{gridCol}} {{gridBorder?'':'no-border'}} Scancodetoy" style="bottom: {{shortop}}px;">
+    <view class="cu-item" wx:if="{{index<gridCol*2}}" wx:for="{{checkbox}}" wx:key="unnn">
+        <text style="font-size: 30rpx;">{{item.name}}</text>
+    </view>
+</view>

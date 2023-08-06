@@ -1,0 +1,897 @@
+<cu-custom bgColor="bg-gradual-blue" isBack="{{isbackbutton}}" style="height:10vh">
+    <view slot="backText">返回选择</view>
+    <view slot="content">云睿解码</view>
+</cu-custom>
+<Decode wx:if="{{PageCur=='Decode'}}">
+    <view hidden="{{index=='index'?'':'true'}}" style="height:{{100-9.2-7.5}}vh">
+        <scroll-view class="datatextarea" enableFlex="true" scrollY="true">
+            <view style="width:100%;height:5px"></view>
+            <view class="bg-white" style="justify-content: center;text-align: center;position: relative;display: flex;">
+                <view style="height:20vh;width: 100%;">
+                    <image mode="aspectFill" src="/images/card.jpg" style="width: 100%;height: 100%;"></image>
+                </view>
+            </view>
+            <view>
+                <view class="cu-bar bg-white justify-start">
+                    <view class="padding-xl" style="font-size：20px; padding: 5px 0;font-weight: bold;">
+                        <view class="cu-form-group" style="border-top:none;min-height: 70rpx;">
+                            <view class="title" style="font-size: 40rpx;padding-right: 10rpx;">
+                                <text decode="{{true}}">设&nbsp;&nbsp;&nbsp;&nbsp;备:</text>
+                            </view>
+                            <view style="flex: 1;font-size: 40rpx;">
+                                <text>{{bluetoolName}}</text>
+                            </view>
+                        </view>
+                        <view style="display: flex;">
+                            <view class="cu-form-group" style="border-top:none;min-height: 70rpx;">
+                                <view class="title" style="font-size: 40rpx;padding-right: 10rpx;">卡型号:</view>
+                                <view style="flex: 1;font-size: 40rpx;">{{carddata.Type}}</view>
+                            </view>
+                            <view class="cu-form-group" style="border-top:none;min-height: 70rpx;{{carddata.Hz==''?'position:relative;left:38%;':''}}">
+                                <view class="title" style="font-size: 40rpx;padding-right: 10rpx;">卡频率:
+								</view>
+                                <view style="flex: 1;font-size: 40rpx;">{{carddata.Hz}}</view>
+                            </view>
+                        </view>
+                        <view class="cu-form-group" style="border-top:none;min-height: 70rpx;">
+                            <view class="title" style="font-size: 40rpx;padding-right: 10rpx;">卡号码:</view>
+                            <view style="flex: 1;font-size: 40rpx;">
+                                <text>{{carddata.IntID}}</text>
+                                <text>{{carddata.ID}}</text>
+                            </view>
+                        </view>
+                        <view class="cu-form-group" style="border-top:none;min-height: 70rpx;display:{{carddataname.isloginshow}}">
+                            <view class="title" style="font-size: 40rpx;padding-right: 10rpx;">卡包名:</view>
+                            <view style="flex: 1;font-size: 40rpx;">
+                                <text>{{carddataname.cardNamep}}</text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="bg-white margin-top" style="display:grid;padding: 15rpx 30rpx;">
+                <view style="text-align:center">
+                    <text>{{tipmessage}}</text>
+                </view>
+            </view>
+            <view class="padding bg-white margin-top">
+                <view class="flex">
+                    <view class="cu-progress round">
+                        <view class="bg-green" style="width:{{speed}}%;"></view>
+                    </view>
+                    <text class="{{speed==100?'cuIcon-roundcheckfill text-green margin-left-sm':'margin-left'}}">{{speed==100?'':speed+'%'}}</text>
+                </view>
+            </view>
+            <view class="margin-top">
+                <view class="cu-bar bg-white justify-start">
+                    <button bindtap="ReadData" class="eq bg-blue line-blue text-white" disabled="{{isWork}}" style="width:41.8%;height:45px;">
+                        <text decode="{{true}}" style="font-size: 20px;font-weight: bold;">读&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;取</text>
+                    </button>
+                    <button bindtap="WriteCardData" class="eq bg-blue line-blue text-white" disabled="{{iswritebtn}}" style="width:41.8%;height: 45px;">
+                        <text decode="{{true}}" style="font-size: 20px;font-weight: bold;">写&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;入</text>
+                    </button>
+                </view>
+                <view class="cu-bar bg-white justify-start">
+                    <button bindtap="FormatData" class="eq bg-blue line-blue text-white" disabled="{{isIC1}}">
+                        <text decode="{{true}}">格&nbsp;&nbsp;式&nbsp;&nbsp;化</text>
+                    </button>
+                    <button bindtap="DecodeData" class="eq bg-blue line-blue text-white" disabled="{{isIC}}">
+                        <text decode="{{true}}">云睿解码</text>
+                    </button>
+                    <button bindtap="DataEdit" class="eq bg-blue line-blue text-white" disabled="{{isEditBtn}}">数据编辑</button>
+                </view>
+            </view>
+            <view>
+                <view class="cu-bar justify-start" style="min-height: 10px;">
+                    <view class="title" style="margin: 0 10px;font-weight: bold;font-size: 18px;"></view>
+                </view>
+                <view class="cu-bar bg-white justify-start">
+                    <button bindtap="editCardBtn" class="eq bg-blue line-blue text-white" style="width:41.8%">
+                        <text decode="{{true}}">&nbsp;&nbsp;卡号手动一键编辑&nbsp;&nbsp;&nbsp;</text>
+                    </button>
+                    <button bindtap="konwpass" class="eq bg-blue line-blue text-white" style="width:41.8%">
+                        <text decode="{{true}}">&nbsp;&nbsp;已知密匙一键解码&nbsp;&nbsp;</text>
+                    </button>
+                </view>
+                <view class="cu-bar bg-white justify-start">
+                    <button bindtap="sensecard" class="eq bg-blue line-blue text-white" style="width:41.8%">
+                        <text decode="{{true}}">福睿侦测卡一键解码
+						</text>
+                    </button>
+                    <button class="eq bg-white line-white text-white" style="width:41.8%">
+                        <text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;{{nettest}}&nbsp;&nbsp;&nbsp;&nbsp;
+						</text>
+                    </button>
+                </view>
+            </view>
+        </scroll-view>
+    </view>
+    <view hidden="{{index=='decode'?'':'true'}}" style="height:82vh">
+        <view class="bg-white" style="justify-content: center;text-align: center;position: relative;display: flex;">
+            <view style="height:20vh;width: 100%;">
+                <image mode="aspectFill" src="/images/card.jpg" style="width: 100%;height: 100%;"></image>
+            </view>
+        </view>
+        <view class="bg-white margin-top" style="height: 10vh;font-weight: bold;margin-top: 20rpx;">
+            <view class="margin-left" style="font-size:20px">
+                <view style="display: flex;">
+                    <view>
+                        <text>型号：</text>
+                        <text>{{carddata.Type}}</text>
+                    </view>
+                    <view>
+                        <text>频率：</text>
+                        <text>{{carddata.Hz}}</text>
+                    </view>
+                </view>
+                <view style="display: flex;flex-direction: row;justify-content:start;margin: 10px 0 0 0;">
+                    <view style="margin: 0 10px 0 0;">
+                        <text>卡号：</text>
+                        <text>{{carddata.IntID}}</text>
+                        <text>{{carddata.ID}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="bg-white margin-top" style="font-weight: bold;margin-top: 10rpx;">
+            <view style="position: relative;text-align: center;">
+				云睿解码:{{Decode}}
+			</view>
+            <view style="position: relative;display: {{staticnested}};">
+                <view style="width: 50%;">
+                    <view class="margin-left">
+                        <text>密码总数：</text>
+                        <text>{{totalstatic}}</text>
+                    </view>
+                </view>
+                <view>
+                    <text>当前已使用：</text>
+                    <text>{{staticindex}}</text>
+                </view>
+            </view>
+        </view>
+        <view class="bg-white" style="align-items: center;display: flex;justify-content: center;font-size:15px;font-weight:bold;margin-top: 10rpx;">
+            <view style="position: relative;text-align: center;">
+				解码中请勿退出程序、关闭屏幕！
+			</view>
+        </view>
+        <view class="padding bg-white margin-top" style="margin-top: 10rpx;">
+            <view style="height:10vh">
+                <scroll-view scrollY enableFlex="true" scrollIntoView="{{msgbottom}}" style="height:100%;font-size: 16px;line-height: 23px;white-space: nowrap;">
+                    <view wx:for="{{msgText}}" wx:key="index">
+                        <text style="padding:10px">{{item.time}}</text>
+                        <text style="padding:10px">{{item.text}}</text>
+                    </view>
+                    <view id="msgscrollbottom" style="height:1rpx"></view>
+                </scroll-view>
+            </view>
+        </view>
+        <view class="margin-top" style="margin-top: 10rpx;">
+            <view class="grid col-3 bg-white">
+                <view style="width: 12.5%" wx:for="{{imglist}}" wx:key="imglist">
+                    <view class="bg-white padding radius text-center light" style="padding:10rpx">
+                        <view style="display: flex;flex-direction: row;width: 30px;">
+                            <view class="{{item.r}}"></view>
+                            <View class="{{item.r1}}"></View>
+                        </view>
+                        <view class="text-lg text-center" style="width: 30px;">{{item.id}}</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="padding bg-white margin-top" style="margin-top: 10rpx;">
+            <view class="flex">
+                <view class="cu-progress round">
+                    <view class="bg-green" style="width:{{speed}}%;"></view>
+                </view>
+                <text class="{{speed==100?'cuIcon-roundcheckfill text-green margin-left-sm':'margin-left'}}">{{speed==100?'':speed+'%'}}</text>
+            </view>
+        </view>
+        <view class="margin-top" style="margin-top: 10rpx;">
+            <view>
+                <view class="cu-bar bg-white justify-start">
+                    <button bindtap="BackData" class="eq bg-blue line-blue text-white">
+                        <text decode="{{true}}">返回主页</text>
+                    </button>
+                    <button bindtap="ShowData" class="eq bg-blue line-blue text-white" disabled="{{iswritebtn}}">
+                        <text decode="{{true}}">查看编辑数据</text>
+                    </button>
+                    <button bindtap="StopCmd" class="eq bg-blue line-blue text-white" disabled="{{isstopbtn}}">
+                        <text decode="{{true}}">停&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;止</text>
+                    </button>
+                </view>
+            </view>
+        </view>
+        <view class="cu-bar justify-start" style="min-height: 8vh;">
+            <view class="title" style="margin: 0 10px;font-weight: bold;font-size: 18px;"></view>
+        </view>
+    </view>
+    <view hidden="{{index=='editcard'?'':'true'}}" style="height:{{100-10}}vh">
+        <view style="height:67vh;position:relative;top: 5rpx;">
+            <view class="bg-white" style="height:{{comparedatadiv}}%;position:relative; {{iscompare?'':'display:none'}}">
+                <view style="display:flex;position: relative;top: 6px;font-size: 18px;align-items: center;font-weight: bold;">
+                    <view style="">对比数据:</view>
+                    <view style="display:flex">
+                        <view style="position: relative;left: 5vw;border: solid 0.5px;">
+                            <view>{{comparecard.card1}}</view>
+                        </view>
+                        <view class="text-white" style="position: relative;left: 15vw;background-color: gray;border: :solid 0.5px;">
+                            <view>{{comparecard.card2}}</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <scroll-view scrollX scrollY class="datablockarea" scrollIntoView="{{datascrolls}}" style="height:{{iscompare?100-comparedatadiv:100}}%;">
+                <view bindtap="{{allTextData[index].isedit?'textEditbydata':''}}" data-id="{{index}}" data-value="{{allTextData[index].textarray}}" style="width:140vw" wx:for="{{allTextData}}" wx:key="index">
+                    <view class="cu-form-group " style="padding:1rpx 5rpx;min-height: 70rpx;">
+                        <view class="title">{{item.block}}区{{item.id}}块:</view>
+                        <view class="{{iscompare?allTextData[index].comparebackcolor:allTextData[index].backcolor}}" style="width:100vm;display:flex;flex:2">
+                            <view class="bg-{{textarray.color}}" style="margin: 0 5px 0 0;font-family: Courier New;font-size: 18px;font-weight: bold;" wx:for="{{item.textarray}}" wx:for-item="textarray" wx:key="id"> {{textarray.text}}</view>
+                        </view>
+                    </view>
+                </view>
+                <view id="datascroll" style="height:1rpx"></view>
+            </scroll-view>
+        </view>
+        <view class="margin-top" style="height:15vh;">
+            <view class="cu-bar bg-white justify-start">
+                <button bindtap="BackData" class="eq line-white text-white bg-blue" disabled="{{isfinish}}">返回上级</button>
+                <button bindtap="CompareData" class="eq line-white text-white bg-blue" disabled="{{iscomparebtn}}">数据对比</button>
+                <button bindtap="RemoveCompareData" class="eq line-white text-white bg-blue" disabled="{{clearcomparebtn}}">清除对比</button>
+            </view>
+            <view class="cu-bar bg-white justify-start">
+                <button bindtap="SavePrivateCardData" class="eq line-white text-white bg-blue" disabled="{{isfinish}}">数据保存</button>
+                <button bindtap="resolveData" class="eq line-white text-white bg-blue" disabled="{{isfinish}}">数据分析</button>
+                <button bindtap="editdatablock" class="eq line-white text-white bg-blue">数据编辑</button>
+            </view>
+        </view>
+    </view>
+    <view>
+        <view class="cu-modal {{analysingdata}}">
+            <view bindtap="close" class="cu-dialog">
+                <view class="cu-bar bg-white justify-end">
+                    <view class="content">数据分析结果</view>
+                    <view bindtap="hideModal" class="action">
+                        <text class="cuIcon-close text-red"></text>
+                    </view>
+                </view>
+                <view class="padding-xl" style="padding:35rpx">
+                    <view class="bg-white justify-start" style="justify-content: flex-start;padding:0;">
+                        <scroll-view scrollY enableFlex="true" style="font-size: 20px;line-height: 30px; height:55vh;width:100%">
+                            <view style="display:flex;flex-direction: column;text-overflow:ellipsis;word-wrap:break-word;">
+                                <view style="display:flex" wx:for="{{analysingarray}}" wx:key="index">
+                                    <text style="text-align: left;">{{item}}</text>
+                                </view>
+                            </view>
+                        </scroll-view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view>
+        <view class="cu-modal {{editCard}}">
+            <view bindtap="close" class="cu-dialog">
+                <view class="cu-bar bg-white justify-end">
+                    <view class="content">卡号编辑</view>
+                    <view bindtap="hideModal" class="action">
+                        <text class="cuIcon-close text-red"></text>
+                    </view>
+                </view>
+                <view class="padding-xl">
+                    <view class="cu-form-group margin-top" style="justify-content: flex-start;">
+                        <view class="title" style="width:25%">卡类型:</view>
+                        <view class="section text-center" style="width:75%">
+                            <picker bindchange="bindeditcardtypeChange" range="{{typelist}}" rangeKey="{{'name'}}" style="width: 100%;display: flex;justify-content: center;" value="{{editcardtype}}">
+                                <view class="picker">
+									{{typelist[editcardtype].name}}
+								</view>
+                            </picker>
+                        </view>
+                    </view>
+                    <view class="cu-form-group margin-top" style="justify-content: flex-start;">
+                        <view class="title" style="width:25%">卡频率</view>
+                        <view class="section" style=" width: 75%;">
+                            <picker bindchange="bindeditcardhzChange" range="{{hhlist}}" rangeKey="{{'name'}}" style="width: 100%;display: flex;justify-content: center;" value="{{editcardhz}}">
+                                <view class="picker">
+									{{hhlist[editcardhz].name}}
+								</view>
+                            </picker>
+                        </view>
+                    </view>
+                    <view class="cu-form-group margin-top" style="justify-content: flex-start;">
+                        <view class="title">卡号码</view>
+                        <input bindinput="bindeditcardidchange" placeholder="请输入卡号" value="{{editcardID}}"></input>
+                    </view>
+                    <view class="cu-form-group margin-top" style="justify-content: flex-start;position: relative;">
+                        <radio-group bindchange="bindeditformatchage" class="block" style="position: absolute;right: 0;">
+                            <View style="display:flex;flex-drection:row">
+                                <view class="margin-right">
+                                    <label class="flex justify-between align-center flex-sub">
+										十进制
+									</label>
+                                    <radio checked="{{isten}}" class="round" value="1"></radio>
+                                </view>
+                                <view>
+                                    <label class="flex justify-between align-center flex-sub">
+										十六进制
+									</label>
+                                    <radio checked="{{!isten}}" class="round" value="2"></radio>
+                                </view>
+                            </View>
+                        </radio-group>
+                    </view>
+                </view>
+                <view class="cu-bar bg-white justify-end">
+                    <view class="action">
+                        <button bindtap="hideModal" class="cu-btn line-blue text-blue">取消</button>
+                        <button bindtap="editcarddatasubmit" class="cu-btn bg-blue margin-left">确定</button>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="cu-modal {{morecardshow}}">
+        <view class="cu-dialog">
+            <view class="cu-bar bg-white justify-end">
+                <view class="content">监测到多张卡片,请选择</view>
+            </view>
+            <view style="width:100%">
+                <view style="padding: 10rpx 30rpx 30rpx 30rpx;;overflow:hidden;white-space:nowrap;height:55vh">
+                    <view bindtap="oncardclick" class="cu-card case  " data-id="{{index}}" hoverClass="none" style="padding:5px 0" wx:for="{{morecard}}" wx:key="index">
+                        <view class="flex-twice padding-sm margin-xs radius text-white  bg-blue" style="width: 100%;">
+                            <view style="display:flex;position:relative">
+                                <text class="  flex justify-between  " decode="{{true}}">
+										类型：<text>{{item.Type}}</text>
+                                </text>
+                                <text class="  flex justify-between  " decode="{{true}}" style="padding-left: 50rpx;position: absolute;left: 40%;">
+										频率：<text>{{item.Hz}}</text>
+                                </text>
+                            </view>
+                            <text class="  flex justify-between  " decode="{{true}}">
+									卡号：<text>
+                                    <text>{{item.IntID}}</text>{{item.ID}}</text>
+                            </text>
+                        </view>
+                    </view>
+                    <view>
+                        <text>({{backwards}})</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="cu-modal {{konwpass}}">
+        <view bindtap="close" class="cu-dialog">
+            <view class="cu-bar bg-white justify-end">
+                <view class="content">已知密匙一键解码</view>
+                <view bindtap="hideModal" class="action">
+                    <text class="cuIcon-close text-red"></text>
+                </view>
+            </view>
+            <view class="padding-xl" style="height:50vh;padding:40rpx 50rpx 0rpx 50rpx;">
+                <scroll-view scrollY enableFlex="true" style="height:100%">
+                    <view class="cu-form-group " style="justify-content: flex-start;" wx:for="{{konwarray}}" wx:key="index">
+                        <view class="title">密码</view>
+                        <input bindinput="setkeytext" id="{{index}}" value="{{item}}"></input>
+                    </view>
+                </scroll-view>
+            </view>
+            <view class="cu-form-group margin-top" style="justify-content: flex-start;">
+                <button bindtap="addnewpass" class="eq" style="width:19vh">添加已知密码</button>
+                <button bindtap="clearpass" class="eq" style="width:19vh">清 空 密 码</button>
+            </view>
+            <view class="cu-bar bg-white justify-end">
+                <view class="action">
+                    <button bindtap="hideModal" class="cu-btn line-blue text-blue">取消</button>
+                    <button bindtap="Passcheckbtn" class="cu-btn bg-blue margin-left">确定</button>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="cu-modal {{senseresolve}}">
+        <view bindtap="close" class="cu-dialog">
+            <view class="cu-bar bg-white justify-end">
+                <view class="content">侦测卡片</view>
+                <view bindtap="hideModal" class="action">
+                    <text class="cuIcon-close text-red"></text>
+                </view>
+            </view>
+            <view class="padding-xl" style="height:50vh">
+                <scroll-view scrollY enableFlex="true" style="height:89%">
+                    <view class="cu-form-group " style="justify-content: flex-start;" wx:for="{{sensepassdata}}" wx:key="index">
+                        <view class="title">{{item.block}}区{{item.abpass}}密码</view>
+                        <input bindinput="setkeytext" id="{{index}}" readonly="true" value="{{item.password}}"></input>
+                    </view>
+                </scroll-view>
+            </view>
+            <view class="cu-form-group margin-top bg-white" style="justify-content: flex-start;">
+                <button bindtap="ICCardNum1" class="eq bg-blue" style="width:35vw">读取IC卡片</button>
+                <button bindtap="SenseCode" class="eq bg-blue" disabled="{{sensebtn}}" style="width:35vw">初始化侦测卡</button>
+            </view>
+            <view class="cu-form-group  bg-white" style="justify-content: flex-start;">
+                <button bindtap="ReadSenseData" class="eq bg-blue" disabled="{{sensebtn}}" style="width:35vw">读取侦测数据</button>
+                <button bindtap="SenseDecodeData" class="eq bg-blue" disabled="{{sensebtn}}" style="width:35vw">解 码</button>
+            </view>
+        </view>
+    </view>
+</Decode>
+<EQ wx:if="{{PageCur=='EQ'}}">
+    <view class="margin-top">
+        <view class="cu-bar bg-white justify-start" style="display: grid;">
+            <view class="title margin-left">当前已连接设备:</view>
+            <view class="cu-form-group margin-left " style="display:{{connectShow}};padding:0;">
+                <view class="cu-item ">
+                    <label class="flex justify-between align-center flex-sub">
+                        <view>
+                            <view class="flex-sub" style="margin: 10px 0;">名字: {{bluetoolName}}</view>
+                            <view class="flex-sub" style="margin: 10px 0;">序号: {{bluetoolUID}}</view>
+                        </view>
+                    </label>
+                </view>
+            </view>
+        </view>
+        <view class="cu-bar bg-white justify-start margin-top">
+            <button bindtap="InitBlueToolth" class="eq bg-blue line-blue text-white" disabled="{{disbtn}}">查找设备</button>
+            <button bindtap="CloseBlueToolth" class="eq bg-blue line-blue text-white">断开设备</button>
+            <button bindtap="UpdatePass" class="eq bg-blue line-blue text-white">设备升级</button>
+        </view>
+        <view class="bg-white margin-top" style="display:{{blueaerrinfo.show}}">
+            <view class=" text-center text-red" style="font-size:24px;font-weight:bold">
+				{{blueaerrinfo.text}}
+			</view>
+        </view>
+        <view class="margin-top">
+            <view class="cu-bar bg-white justify-start" style="margin:10px 0">
+                <view class="title margin-left">蓝牙列表:</view>
+            </view>
+            <view style="flex:1;height:45vh">
+                <scroll-view scrollY enableFlex="true" lowerThreshold="0" style="padding: 10rpx 30rpx 30rpx 30rpx;overflow:hidden;white-space:nowrap;height:100%">
+                    <view class="cu-dialog">
+                        <view class="block">
+                            <view class="cu-list menu text-left">
+                                <view bindtap="OnclickRidio" class="cu-item" data-device-id="{{item.deviceId}}" data-name="{{item.name}}" wx:if="{{bleItem!=null}}" wx:for="{{bleItem}}" wx:key="deviceId">
+                                    <label class="flex justify-between align-center flex-sub">
+                                        <view>
+                                            <view class="flex-sub" style="margin: 10px 0;">名字: {{item.name}}</view>
+                                            <view class="flex-sub" style="margin: 10px 0;">序号: {{item.deviceId}}</view>
+                                        </view>
+                                    </label>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </scroll-view>
+            </view>
+        </view>
+        <view class="cu-modal {{moddelupdate=='DialogModal2'?'show':''}}">
+            <view class="cu-dialog">
+                <view class="cu-bar bg-white justify-end">
+                    <view class="content">版本</view>
+                    <view bindtap="hideModal" class="action">
+                        <text class="cuIcon-close text-red"></text>
+                    </view>
+                </view>
+                <view class="padding-xl">
+                    <view class="cu-form-group">
+                        <view class="title">当前版本为:{{oldVersion}} </view>
+                    </view>
+                    <view class="cu-form-group">
+                        <view class="title">最新版本为:{{newversion}} </view>
+                    </view>
+                    <view class="cu-form-group">
+                        <text>
+							{{description}}
+						</text>
+                    </view>
+                </view>
+                <view class="cu-bar bg-white justify-end">
+                    <view class="action">
+                        <button bindtap="hideModal" class="cu-btn line-green text-green">取消</button>
+                        <button bindtap="UpdateView" class="cu-btn bg-green margin-left">更新</button>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="cu-modal {{moddelnonupdate=='DialogModal3'?'show':''}}">
+            <view class="cu-dialog">
+                <view class="cu-bar bg-white justify-end">
+                    <view class="content">版本</view>
+                    <view bindtap="hideModal" class="action">
+                        <text class="cuIcon-close text-red"></text>
+                    </view>
+                </view>
+                <view class="padding-xl">
+                    <view class="cu-form-group">
+                        <view class="title">当前为最新版本 </view>
+                    </view>
+                </view>
+                <view class="cu-bar bg-white justify-end">
+                    <view class="action">
+                        <button bindtap="hideModal" class="cu-btn line-green text-green">关闭</button>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="cu-modal {{updateview=='DialogModal4'?'show':''}}">
+            <view class="cu-dialog">
+                <view class="padding-xl" style="align-items: center;justify-content: center; display: flex; ">
+                    <progressView canvasWidth="350" direction="left" hidden="{{updatebtn=='DialogModal5'?'':'true'}}" id="progressView2" radian="1"></progressView>
+                </view>
+                <view class="padding-xl">
+                    <view class="title" style="text-align:center">{{msgtext}}</view>
+                </view>
+                <view class="padding-xl" hidden="{{updatebtn=='DialogModal5'?'':'true'}}">
+                    <view style="align-items: center;justify-content: center; display: flex;">
+                        <button bindtap="hideModal" class="cu-btn bg-white">关闭</button>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</EQ>
+<CP wx:if="{{PageCur=='CP'}}">
+    <view class="margin-top">
+        <view style="height:64vh">
+            <scroll-view scrollY enableFlex="true" lowerThreshold="0" style="padding:0px 15px;overflow:hidden;white-space:nowrap;height:100%">
+                <view bindtap="PrivateCardInfoChange1" class="cu-card case " data-id="{{index}}" hoverClass="none" style="padding:5px 0" wx:for="{{ArrayList2}}" wx:for-item="j" wx:key="unique">
+                    <view class="flex  p-xs margin-bottom-sm mb-sm bg-{{packgeID==index?'blue':'white'}} " style="border-radius: 30rpx;">
+                        <view class="flex-twice padding-sm margin-xs radius" style="width: 50%;">
+                            <view class="text-cut " style="font-size: 38rpx;">
+									{{j.province}}{{j.city}}{{j.area}}
+								</view>
+                            <view class="text-cut " style="font-size: 38rpx;">{{j.name}}</view>
+                        </view>
+                    </view>
+                </view>
+            </scroll-view>
+        </view>
+        <view class="margin-top" style="height:10vh;">
+            <view class="cu-bar bg-white justify-start">
+                <button bindtap="ChoosePrivateCard" class="eq line-white text-white bg-blue">选择写卡</button>
+                <button bindtap="EditPrivateCardData" class="eq line-white text-white bg-blue">编辑数据</button>
+            </view>
+            <view class="cu-bar bg-white justify-start">
+                <button bindtap="EditPrivateCardName" class="eq line-white text-white bg-blue">编辑名称</button>
+                <button bindtap="DeletePrivateCardP" class="eq line-white text-white bg-blue">删除卡包</button>
+            </view>
+        </view>
+    </view>
+</CP>
+<MY wx:if="{{PageCur=='MY'}}">
+    <view class="personalWrap margin-top" style="width:100%;height:100%;overflow:hidden;">
+        <view class="personalMe">
+            <view class="round" style="width:200rpx;height:200rpx;border:1px solid #ddd;float:left;margin:20rpx 20rpx;border-radius: 50%;">
+                <image src="{{userLogo}}" style="width:100%;height:100%"></image>
+            </view>
+            <view hidden="{{login==''?'true':''}}" style="position: relative;top: 100rpx;left: 20px;">
+                <view class="cu-form-group margin-top" style="justify-content: left;">
+                    <view class="title" style="font-size:16px">昵称:</view>
+                    <view style="font-size:16px;position:relative;top:2px">{{usernickName}}</view>
+                </view>
+            </view>
+            <view hidden="{{login=='login'?'true':''}}" style="position: relative;top: 100rpx;left: 20px;">
+                <button bindtap="getUserProfile" class="cu-btn bg-green margin-left" style="width: 100px;height: 35px;font-size: 16px;">登录</button>
+            </view>
+        </view>
+        <view class="cu-list menu sm-border" style="min-height: 150rpx;">
+            <view bindtap="userIn" class="cu-item arrow">
+                <view class="content">
+                    <text class="cuIcon-edit text-grey"></text>
+                    <text class="text-grey">个人信息</text>
+                </view>
+            </view>
+            <view bindtap="userInPass" class="cu-item arrow">
+                <view class="content">
+                    <text class="cuIcon-lock text-grey"></text>
+                    <text class="text-grey">修改密码</text>
+                </view>
+            </view>
+            <button class="cu-item arrow removeborder" openType="contact">
+                <view class="content" style="flex:none">
+                    <text class="cuIcon-service text-grey"></text>
+                    <text class="text-grey">联系客服</text>
+                </view>
+            </button>
+            <view bindtap="AboutUs" class="cu-item arrow">
+                <view class="content">
+                    <text class="cuIcon-edit text-grey"></text>
+                    <text class="text-grey">关于我们</text>
+                </view>
+            </view>
+            <view class="clientserver" hidden="{{login==''?'true':''}}">
+                <button bindtap="logOut" class="cu-btn bg-white removeborder">注销</button>
+            </view>
+        </view>
+        <view class="cu-modal {{loginName=='DialogModal1'?'show':''}}">
+            <view class="cu-dialog">
+                <view class="cu-bar bg-white justify-end">
+                    <view class="content">登陆</view>
+                    <view bindtap="hideModal" class="action">
+                        <text class="cuIcon-close text-red"></text>
+                    </view>
+                </view>
+                <view class="padding-xl">
+                    <view class="cu-form-group " style="justify-content: center;">
+                        <button bindgetphonenumber="getPhoneNumber" class="cu-btn bg-green margin-left" openType="getPhoneNumber" style="width: 200px;"> 手机一键登陆 </button>
+                    </view>
+                    <view class="cu-form-group" style="justify-content: center;">
+                        <button bindtap="frAccountlogin" class="cu-btn margin-left" style="width: 200px;"> 福睿账号登陆 </button>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <form bindsubmit="LoginAccount">
+            <view class="cu-modal  {{fruserLogin=='DialogModal1'?'show':''}}">
+                <view class="cu-dialog">
+                    <view class="cu-bar bg-white justify-end">
+                        <view class="content">登陆</view>
+                        <view bindtap="hideModal" class="action">
+                            <text class="cuIcon-close text-red"></text>
+                        </view>
+                    </view>
+                    <view class="padding-xl">
+                        <view class="cu-form-group margin-top">
+                            <view class="title">账号</view>
+                            <input name="username" placeholder="请输入账号" type="text"></input>
+                        </view>
+                        <view class="cu-form-group">
+                            <view class="title">密码</view>
+                            <input name="password" placeholder="请输入密码" type="password"></input>
+                        </view>
+                    </view>
+                    <view class="cu-bar bg-white" style="justify-content: center;">
+                        <button class="cu-btn bg-green" formType="submit" style="width: 100px;font-size: 14px;">登陆</button>
+                    </view>
+                </view>
+            </view>
+        </form>
+        <form bindsubmit="ModifyUserInformation">
+            <view class="cu-modal {{modalName=='DialogModal1'?'show':''}}">
+                <view class="cu-dialog">
+                    <view class="cu-bar bg-white justify-end">
+                        <view class="content">个人</view>
+                        <view bindtap="hideModal" class="action">
+                            <text class="cuIcon-close text-red"></text>
+                        </view>
+                    </view>
+                    <view class="padding-xl">
+                        <view class="cu-form-group margin-top">
+                            <view class="title">名称</view>
+                            <input name="name" placeholder="请输入名称" value="{{user.name}}"></input>
+                        </view>
+                        <view class="cu-form-group">
+                            <view class="title">邮箱</view>
+                            <input name="email" placeholder="请输入邮箱" value="{{user.email}}"></input>
+                        </view>
+                        <view class="cu-form-group">
+                            <view class="title">性别</view>
+                            <switch checked="{{user.sex==1?'true':'false'}}" class="switch-sex" name="sex"></switch>
+                        </view>
+                    </view>
+                    <view class="cu-bar bg-white justify-end">
+                        <view class="action">
+                            <button bindtap="hideModal" class="cu-btn line-green text-green">取消</button>
+                            <button class="cu-btn bg-green margin-left" formType="submit">确定</button>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </form>
+        <form bindsubmit="ModifyUserPassWord">
+            <view class="cu-modal {{modalPass=='DialogModal1'?'show':''}}">
+                <view class="cu-dialog">
+                    <view class="cu-bar bg-white justify-end">
+                        <view class="content">修改密码</view>
+                        <view bindtap="hideModal" class="action">
+                            <text class="cuIcon-close text-red"></text>
+                        </view>
+                    </view>
+                    <view class="padding-xl">
+                        <view class="cu-form-group margin-top">
+                            <view class="title">旧密码</view>
+                            <input name="UserPass" password="true" placeholder="请输入原密码" value="{{passempty}}"></input>
+                        </view>
+                        <view class="cu-form-group margin-top">
+                            <view class="title">新密码</view>
+                            <input name="UmPass" password="true" placeholder="请输入新密码" value="{{passempty}}"></input>
+                        </view>
+                        <view class="cu-form-group">
+                            <view class="title">新密码</view>
+                            <input name="RmPass" password="true" placeholder="请核对新密码" value="{{passempty}}"></input>
+                        </view>
+                    </view>
+                    <view class="cu-bar bg-white justify-end">
+                        <view class="action">
+                            <button bindtap="hideModal" class="cu-btn line-green text-green">取消</button>
+                            <button class="cu-btn bg-green margin-left" formType="submit">确定</button>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </form>
+    </view>
+</MY>
+<view class="cu-modal {{aboutus}}">
+    <view class="cu-dialog">
+        <view class="cu-bar bg-white justify-end">
+            <view class="content">关于我们</view>
+            <view bindtap="hideModal" class="action">
+                <text class="cuIcon-close text-red"></text>
+            </view>
+        </view>
+        <view style="font-size: 30rpx;padding: 30rpx;">
+            <view>福睿配匙机</view>
+            <view>福睿Ratel-蜜獾系列配匙机</view>
+            <view>秉承福睿一惯的便捷操作而不失功能强大</view>
+            <view>超强解码能力并最大提高解码速度</view>
+            <view>一款你最值得拥有的配匙机.</view>
+            <view>厦门市福睿鑫电子科技有限公司</view>
+            <view bindtap="changeconnenct">版本：{{version}}</view>
+            <view style="display:{{!isconnectnet?'block':'none'}}">swich:on</view>
+        </view>
+    </view>
+</view>
+<view class="cu-modal {{PrivatePackage=='DialogModal1'?'show':''}}">
+    <view class="cu-dialog">
+        <view class="cu-bar bg-white justify-end">
+            <view class="content">卡包</view>
+            <view bindtap="hideModal" class="action">
+                <text class="cuIcon-close text-red"></text>
+            </view>
+        </view>
+        <view style="width:100%">
+            <scroll-view scrollY enableFlex="true" lowerThreshold="0" style="padding: 10rpx 30rpx 30rpx 30rpx;;overflow:hidden;white-space:nowrap;height:70vh">
+                <view bindtap="PrivateCardInfoChange" class="cu-card case " data-id="{{index}}" hoverClass="none" style="padding:5px 0" wx:for="{{ArrayList2}}" wx:for-item="j" wx:key="unique">
+                    <view class="flex  p-xs margin-bottom-sm mb-sm bg-white" style="border-radius: 30rpx;">
+                        <view class="flex-twice padding-sm margin-xs radius" style="width: 50%;">
+                            <view class="text-cut " style="font-size: 38rpx;">
+									{{j.province}}{{j.city}}{{j.area}}
+								</view>
+                            <view class="text-cut " style="font-size: 38rpx;">{{j.name}}</view>
+                        </view>
+                    </view>
+                </view>
+            </scroll-view>
+        </view>
+    </view>
+</view>
+<view class="cu-modal {{cardtexteshow}}">
+    <view class="cu-dialog">
+        <view class="cu-bar bg-white justify-end">
+            <view class="content">修改卡数据</view>
+            <view bindtap="hideModal" class="action">
+                <text class="cuIcon-close text-red"></text>
+            </view>
+        </view>
+        <view class="padding-xl">
+            <view class="cu-form-group">
+                <input bindinput="cardatachangeinput" name="tittle" placeholder="" type="text" value="{{carddatatextedit}}"></input>
+            </view>
+        </view>
+        <view class="cu-bar bg-white justify-end" style="justify-content: center;">
+            <view class="action">
+                <button bindtap="hideModal" class="cu-btn line-green text-green" style="width: 100px;">取消</button>
+                <button bindtap="SaveEditCardkeyData" class="cu-btn bg-green margin-left" style="width: 100px;">修改</button>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="cu-modal {{index=='editcardform'?'show':''}}">
+    <view class="cu-dialog">
+        <form>
+            <view>
+                <view class="padding-xl">
+                    <view class="cu-form-group margin-top" style="justify-content: flex-start;">
+                        <view class="title" style="white-space: nowrap;">省市区</view>
+                        <view class="section">
+                            <picker bindchange="bindRegionChange" customItem="{{customItem}}" mode="region" value="{{region}}">
+                                <view class="picker">
+									{{region[0]}}，{{region[1]}}，{{region[2]}}
+								</view>
+                            </picker>
+                        </view>
+                    </view>
+                    <view class="cu-form-group margin-top">
+                        <view class="title">名字</view>
+                        <input bindinput="nameinputchange" name="tittle" placeholder="" type="text" value="{{cardName}}"></input>
+                    </view>
+                </view>
+                <view class="cu-bar bg-white justify-end" style="justify-content: center;">
+                    <view class="action">
+                        <button bindtap="backlist" class="cu-btn line-green text-green" style="width: 100px;">返回</button>
+                        <button bindtap="UpdatePrivateCardAddress" class="cu-btn bg-green margin-left" style="width: 100px;">修改</button>
+                    </view>
+                </view>
+            </view>
+        </form>
+    </view>
+</view>
+<view class="cu-modal {{savecarddata}}">
+    <view class="cu-dialog">
+        <form>
+            <view>
+                <view class="padding-xl">
+                    <view class="cu-form-group margin-top" style="justify-content: flex-start;">
+                        <view class="title" style="white-space: nowrap;">省市区</view>
+                        <view class="section">
+                            <picker bindchange="bindRegionChange" customItem="{{customItem}}" mode="region" value="{{region}}">
+                                <view class="picker">
+									{{region[0]}}，{{region[1]}}，{{region[2]}}
+								</view>
+                            </picker>
+                        </view>
+                    </view>
+                    <view class="cu-form-group margin-top">
+                        <view class="title">名字</view>
+                        <input bindinput="nameinputchange" name="tittle" placeholder="" type="text" value="{{cardName}}"></input>
+                    </view>
+                </view>
+                <view class="cu-bar bg-white justify-end" style="justify-content: center;">
+                    <view class="action">
+                        <button bindtap="cancelsave" class="cu-btn line-green text-green" style="width: 100px;">取消</button>
+                        <button bindtap="AddNewPrivateCard" class="cu-btn bg-green margin-left" style="width: 100px;">保存</button>
+                    </view>
+                </view>
+            </view>
+        </form>
+    </view>
+</view>
+<view bindtap="hideModal" class="cu-modal {{bluetools}}">
+    <view class="cu-dialog">
+        <view class="cu-bar bg-white justify-end">
+            <view class="content">蓝牙</view>
+        </view>
+        <view class="padding-xl">
+            <view style="font-size:12px">{{bluetoolAtten}}</view>
+        </view>
+    </view>
+</view>
+<view bindtap="hideModal1" class="cu-modal {{attensioninfo.show}}">
+    <view class="cu-dialog">
+        <view class="padding-xl">
+            <view style="font-size:20px;display:grid">
+                <text>{{attensioninfo.text}}</text>
+                <text class=" margin-top">{{attensioninfo.text1}}</text>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="cu-modal {{errorData.show}}">
+    <view bindtap="close" class="cu-dialog bg-black" style="opacity: 0.9;width:70%">
+        <view style="height: 100px;display: flex;justify-content: center;">
+            <view style="width: 70px;height: 70px;position: relative;top: 15px;">
+                <image src="/images/statuspic/{{errorData.pic}}" style="position:relative;width:100%;height:100%"></image>
+            </view>
+        </view>
+        <view class="{{errorData.disp}}">
+            <view class="flex" style="width: 70%;position: relative;left: 1%;">
+                <view class="cu-progress round">
+                    <view class="bg-green" style="width:{{tipspeed}}%;"></view>
+                </view>
+                <text class="{{tipspeed==100?'cuIcon-roundcheckfill text-green margin-left-sm':'margin-left'}}">{{tipspeed==100?'':tipspeed+'%'}}</text>
+            </view>
+        </view>
+        <view style="height: 30px;font-size: 18px;">
+            <text>{{errorData.text}}</text>
+        </view>
+    </view>
+</view>
+<view class="cu-bar tabbar bg-white shadow foot" id="index-menu">
+    <view bindtap="NavChange" class="action text-{{PageCur=='Decode'?'green':'gray'}}" data-cur="Decode">
+        <view class="cuIcon-home"></view>
+		主页
+	</view>
+    <view bindtap="NavChange" class="action text-{{PageCur=='EQ'?'green':'gray'}}" data-cur="EQ">
+        <view class="cuIcon-discover"></view>
+		设备
+	</view>
+    <view bindtap="NavChange" class="action text-{{PageCur=='CP'?'green':'gray'}}" data-cur="CP">
+        <view class="cuIcon-card"></view>
+		卡包
+	</view>
+    <view bindtap="NavChange" class="action text-{{PageCur=='MY'?'green':'gray'}}" data-cur="MY">
+        <view class="cuIcon-myfill"></view>
+		我的
+	</view>
+</view>

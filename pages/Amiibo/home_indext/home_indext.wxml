@@ -1,0 +1,402 @@
+<cu-custom bgColor="bg-gradual-blue" id="home-init" isBack="{{isbackbutton}}" style="height:10vh">
+    <view slot="backText">返回选择</view>
+    <view slot="content">首页</view>
+</cu-custom>
+<Homepage style="position:fixed;top:4rem;width:100%;" wx:if="{{PageCur=='Homepage'}}">
+    <view class="cu-bar search bg-white " id="home-text" style="height:7vh;width: 100%;flex:none;">
+        <view class="search-form round">
+            <text class="cuIcon-search"></text>
+            <input bindfocus="Input" bindinput="watchPassWord" confirmType="search" placeholder="输入名称查询" type="text"></input>
+        </view>
+        <view class="action">
+            <view class="cu-btn bg-cyan shadow-blur round">搜索</view>
+        </view>
+    </view>
+    <view style="flex:1;height:75vh">
+        <scroll-view scrollY bindscrolltolower="bindrefre" id="indexes-{{i.typename}}" lowerThreshold="0" style="height:100%;">
+            <image class="png" hidden="{{sname}}" src="/images/Logo/amiibo2.jpg" style="width:100%;height:250px"></image>
+            <navigator bindtap="topshopcome" class="cu-card case" data-cur="plugin" data-id="{{index}}" hoverClass="none" openType="navigate" url="/pages/Amiibo/home/Homepage1/Homepage?serverid={{j.id}}&name={{j.cnTittle}}" wx:for="{{ArrayList.amiiboList}}" wx:for-item="j" wx:key="unique">
+                <view class="cu-item shadow">
+                    <view class="image" style="padding: 20rpx">
+                        <image mode="aspectFit" src="{{j.logoPath}}"></image>
+                        <view class=" text-cut text-black customone" style="font-size: 38rpx;">{{j.tittle==''?'暂无更多':j.tittle}}
+							</view>
+                    </view>
+                    <view class="cu-list menu-avatar">
+                        <view class="cusent">
+                            <view class="flex-sub" style="margin: 0rpx 30rpx 0 ">
+                                <view class=" ite text-gray text-sm flex justify-between fote-size">
+										{{j.description==''?'暂无更多':j.description}}
+									</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </navigator>
+        </scroll-view>
+    </view>
+</Homepage>
+<EQ style="position:fixed;top:4rem;width:100%" wx:if="{{PageCur=='EQ'}}">
+    <view>
+        <view class="cu-bar bg-white justify-start" style="display: grid;">
+            <view class="title margin-left">当前已连接设备:</view>
+            <view class="cu-form-group margin-left " style="display:{{connectShow}};padding:0;">
+                <view class="cu-item ">
+                    <label class="flex justify-between align-center flex-sub">
+                        <view>
+                            <view class="flex-sub" style="margin: 10px 0;">名字: {{bluetoolName}}</view>
+                            <view class="flex-sub" style="margin: 10px 0;">序号: {{bluetoolUID}}</view>
+                        </view>
+                    </label>
+                </view>
+            </view>
+        </view>
+        <view class="cu-bar bg-white justify-start margin-top">
+            <button bindtap="InitBlueToolth" class="eq bg-blue line-blue text-white" disabled="{{disbtn}}">查找设备</button>
+            <button bindtap="CloseBlueToolth" class="eq bg-blue line-blue text-white">断开设备</button>
+            <button bindtap="UpdatePass" class="eq bg-blue line-blue text-white">设备升级</button>
+        </view>
+        <view class="bg-white margin-top" style="display:{{blueaerrinfo.show}}">
+            <view class=" text-center text-red" style="font-size:24px;font-weight:bold">
+				{{blueaerrinfo.text}}
+			</view>
+        </view>
+        <view>
+            <view class="cu-bar bg-white justify-start" style="margin:10px 0">
+                <view class="title" style="margin: 0 10px;">蓝牙列表:</view>
+            </view>
+            <view style="flex:1;height:53vh">
+                <scroll-view scrollY lowerThreshold="0" style="padding: 10rpx 30rpx 30rpx 30rpx;;overflow:hidden;white-space:nowrap;height:100%">
+                    <view class="cu-dialog">
+                        <radio-group class="block">
+                            <view class="cu-list menu text-left">
+                                <view bindtap="OnclickRidio" class="cu-item" data-device-id="{{item.deviceId}}" data-name="{{item.name}}" wx:if="{{bleItem!=null}}" wx:for="{{bleItem}}" wx:key="deviceId">
+                                    <label class="flex justify-between align-center flex-sub">
+                                        <view>
+                                            <view class="flex-sub" style="margin: 10px 0;">名字: {{item.name}}</view>
+                                            <view class="flex-sub" style="margin: 10px 0;">序号: {{item.deviceId}}</view>
+                                        </view>
+                                    </label>
+                                </view>
+                            </view>
+                        </radio-group>
+                    </view>
+                </scroll-view>
+            </view>
+        </view>
+        <view class="cu-modal {{moddelupdate=='DialogModal2'?'show':''}}">
+            <view class="cu-dialog">
+                <view class="cu-bar bg-white justify-end">
+                    <view class="content">版本</view>
+                    <view bindtap="hideModal" class="action">
+                        <text class="cuIcon-close text-red"></text>
+                    </view>
+                </view>
+                <view class="padding-xl">
+                    <view class="cu-form-group">
+                        <view class="title">当前版本为:{{oldVersion}} </view>
+                    </view>
+                    <view class="cu-form-group">
+                        <view class="title">最新版本为:{{newversion}} </view>
+                    </view>
+                    <view class="cu-form-group">
+                        <text>
+							{{description}}
+						</text>
+                    </view>
+                </view>
+                <view class="cu-bar bg-white justify-end">
+                    <view class="action">
+                        <button bindtap="hideModal" class="cu-btn line-green text-green">取消</button>
+                        <button bindtap="UpdateView" class="cu-btn bg-green margin-left">更新</button>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="cu-modal {{moddelnonupdate=='DialogModal3'?'show':''}}">
+            <view class="cu-dialog">
+                <view class="cu-bar bg-white justify-end">
+                    <view class="content">版本</view>
+                    <view bindtap="hideModal" class="action">
+                        <text class="cuIcon-close text-red"></text>
+                    </view>
+                </view>
+                <view class="padding-xl">
+                    <view class="cu-form-group">
+                        <view class="title">当前为最新版本 </view>
+                    </view>
+                </view>
+                <view class="cu-bar bg-white justify-end">
+                    <view class="action">
+                        <button bindtap="hideModal" class="cu-btn line-green text-green">关闭</button>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="cu-modal {{updateview=='DialogModal4'?'show':''}}">
+            <view class="cu-dialog">
+                <view class="padding-xl" style="align-items: center;justify-content: center; display: flex; ">
+                    <progressView canvasWidth="350" direction="left" hidden="{{updatebtn=='DialogModal5'?'':'true'}}" id="progressView2" radian="1"></progressView>
+                </view>
+                <view class="padding-xl">
+                    <view class="title" style="text-align:center">{{msgtext}}</view>
+                </view>
+                <view class="padding-xl" hidden="{{updatebtn=='DialogModal5'?'':'true'}}">
+                    <view style="align-items: center;justify-content: center; display: flex;">
+                        <button bindtap="hideModal" class="cu-btn bg-white">关闭</button>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</EQ>
+<My class="personalWrap margin-top" style="width:100%;height:100%;overflow:hidden;" wx:if="{{PageCur=='My'}}">
+    <view class="personalWrap">
+        <view class="personalMe">
+            <view class="round" style="width:68px;height:68px;border:1px solid #ddd;float:left;margin:20rpx 20rpx;border-radius: 50%;">
+                <image src="{{userLogo}}" style="width:100%;height:100%"></image>
+            </view>
+            <view hidden="{{login==''?'true':''}}" style="position: relative;top: 30px;left: 20px;">
+                <view class="cu-form-group margin-top" style="justify-content: left;">
+                    <view class="title" style="font-size:16px">昵称:</view>
+                    <view style="font-size:16px;position:relative;top:2px">{{usernickName}}</view>
+                </view>
+            </view>
+            <view hidden="{{login=='login'?'true':''}}" style="position: relative;top: 30px;left: 20px;">
+                <button bindgetuserinfo="bindGetUserInfo" class="cu-btn bg-green margin-left" openType="getUserInfo" style="width: 100px;height: 35px;font-size: 16px;">登录</button>
+            </view>
+        </view>
+        <view class="cu-list menu sm-border" style="min-height: 150rpx;">
+            <view bindtap="PrivatePackge" class="cu-item arrow">
+                <view class="content">
+                    <text class="cuIcon-card text-grey"></text>
+                    <text class="text-grey">个人卡包</text>
+                </view>
+            </view>
+            <view bindtap="userIn" class="cu-item arrow">
+                <view class="content">
+                    <text class="cuIcon-edit text-grey"></text>
+                    <text class="text-grey">个人信息</text>
+                </view>
+            </view>
+            <view bindtap="userInPass" class="cu-item arrow">
+                <view class="content">
+                    <text class="cuIcon-lock text-grey"></text>
+                    <text class="text-grey">修改密码</text>
+                </view>
+            </view>
+            <button class="cu-item arrow removeborder" openType="contact">
+                <view class="content" style="flex:none">
+                    <text class="cuIcon-service text-grey"></text>
+                    <text class="text-grey">联系客服</text>
+                </view>
+            </button>
+            <view class="clientserver" hidden="{{login==''?'true':''}}">
+                <button bindtap="logOut" class="cu-btn bg-white removeborder">注销</button>
+            </view>
+        </view>
+        <view class="cu-modal {{loginName=='DialogModal1'?'show':''}}">
+            <view class="cu-dialog">
+                <view class="cu-bar bg-white justify-end">
+                    <view class="content">登陆</view>
+                    <view bindtap="hideModal" class="action">
+                        <text class="cuIcon-close text-red"></text>
+                    </view>
+                </view>
+                <view class="padding-xl">
+                    <view class="cu-form-group " style="justify-content: center;">
+                        <button bindgetphonenumber="getPhoneNumber" class="cu-btn bg-green margin-left" openType="getPhoneNumber" style="width: 200px;"> 手机一键登陆 </button>
+                    </view>
+                    <view class="cu-form-group" style="justify-content: center;">
+                        <button bindtap="frAccountlogin" class="cu-btn margin-left" style="width: 200px;"> 福睿账号登陆 </button>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <form bindsubmit="LoginAccount">
+            <view class="cu-modal  {{fruserLogin=='DialogModal1'?'show':''}}">
+                <view class="cu-dialog">
+                    <view class="cu-bar bg-white justify-end">
+                        <view class="content">登陆</view>
+                        <view bindtap="hideModal" class="action">
+                            <text class="cuIcon-close text-red"></text>
+                        </view>
+                    </view>
+                    <view class="padding-xl">
+                        <view class="cu-form-group margin-top">
+                            <view class="title">账号</view>
+                            <input name="username" placeholder="请输入账号" type="text"></input>
+                        </view>
+                        <view class="cu-form-group">
+                            <view class="title">密码</view>
+                            <input name="password" placeholder="请输入密码" type="password"></input>
+                        </view>
+                    </view>
+                    <view class="cu-bar bg-white" style="justify-content: center;">
+                        <button class="cu-btn bg-green" formType="submit" style="width: 100px;font-size: 14px;">登陆</button>
+                    </view>
+                </view>
+            </view>
+        </form>
+        <form bindsubmit="ModifyUserInformation">
+            <view class="cu-modal {{modalName=='DialogModal1'?'show':''}}">
+                <view class="cu-dialog">
+                    <view class="cu-bar bg-white justify-end">
+                        <view class="content">个人</view>
+                        <view bindtap="hideModal" class="action">
+                            <text class="cuIcon-close text-red"></text>
+                        </view>
+                    </view>
+                    <view class="padding-xl">
+                        <view class="cu-form-group margin-top">
+                            <view class="title">名称</view>
+                            <input name="name" placeholder="请输入名称" value="{{user.name}}"></input>
+                        </view>
+                        <view class="cu-form-group">
+                            <view class="title">邮箱</view>
+                            <input name="email" placeholder="请输入邮箱" value="{{user.email}}"></input>
+                        </view>
+                        <view class="cu-form-group">
+                            <view class="title">性别</view>
+                            <switch checked="{{user.sex==1?'true':'false'}}" class="switch-sex" name="sex"></switch>
+                        </view>
+                    </view>
+                    <view class="cu-bar bg-white justify-end">
+                        <view class="action">
+                            <button bindtap="hideModal" class="cu-btn line-green text-green">取消</button>
+                            <button class="cu-btn bg-green margin-left" formType="submit">确定</button>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </form>
+        <form bindsubmit="ModifyUserPassWord">
+            <view class="cu-modal {{modalPass=='DialogModal1'?'show':''}}">
+                <view class="cu-dialog">
+                    <view class="cu-bar bg-white justify-end">
+                        <view class="content">修改密码</view>
+                        <view bindtap="hideModal" class="action">
+                            <text class="cuIcon-close text-red"></text>
+                        </view>
+                    </view>
+                    <view class="padding-xl">
+                        <view class="cu-form-group margin-top">
+                            <view class="title">旧密码</view>
+                            <input name="UserPass" password="true" placeholder="请输入原密码"></input>
+                        </view>
+                        <view class="cu-form-group margin-top">
+                            <view class="title">新密码</view>
+                            <input name="UmPass" password="true" placeholder="请输入新密码"></input>
+                        </view>
+                        <view class="cu-form-group">
+                            <view class="title">新密码</view>
+                            <input name="RmPass" password="true" placeholder="请核对新密码"></input>
+                        </view>
+                    </view>
+                    <view class="cu-bar bg-white justify-end">
+                        <view class="action">
+                            <button bindtap="hideModal" class="cu-btn line-green text-green">取消</button>
+                            <button class="cu-btn bg-green margin-left" formType="submit">确定</button>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </form>
+        <view class="cu-modal {{PrivatePackage=='DialogModal1'?'show':''}}">
+            <view class="cu-dialog">
+                <view class="cu-bar bg-white justify-end">
+                    <view class="content">个人卡包</view>
+                    <view bindtap="hideModal" class="action">
+                        <text class="cuIcon-close text-red"></text>
+                    </view>
+                </view>
+                <view style="width:100%">
+                    <scroll-view scrollY lowerThreshold="0" style="padding: 10rpx 30rpx 30rpx 30rpx;;overflow:hidden;white-space:nowrap;height:70vh">
+                        <navigator bindtap="storage" class="cu-card case " data-id="{{index}}" hoverClass="none" openType="navigate" style="height: 21vh; padding:5px 0" wx:for="{{ArrayList2.amiiboList}}" wx:for-item="j" wx:key="unique">
+                            <view class="flex  p-xs margin-bottom-sm mb-sm bg-white" style="border-radius: 30rpx;height: 21vh;">
+                                <view class="flex-sub  padding-sm margin-xs radius">
+                                    <image src="{{j.logoPath}}" style="height: 100px;width: 80px;"></image>
+                                </view>
+                                <view class="flex-twice padding-sm margin-xs radius" style="width: 50%;">
+                                    <view class="text-cut " style="font-size: 38rpx;">{{j.tittle==''?'暂无更多':j.tittle}}</view>
+                                    <text class="text-gray text-sm flex justify-between  fote-size" decode="{{true}}">
+											系&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;列:&nbsp;&nbsp;<text class="text-gray">{{j.seriesName==''?'暂无更多':j.seriesName}}</text>
+                                    </text>
+                                    <text class="text-gray text-sm flex justify-between  fote-size" decode="{{true}}">
+											发行日期:&nbsp;&nbsp;<text class="text-gray">{{j.relesaseTime==''?'暂无更多':j.relesaseTime}}</text>
+                                    </text>
+                                    <text class="text-gray text-sm flex justify-between  fote-size" decode="{{true}}">
+											发&nbsp;&nbsp;行&nbsp;&nbsp;商:&nbsp;&nbsp;<text class="text-gray">{{j.presentedBy==''?'暂无更多':j.presentedBy}}</text>
+                                    </text>
+                                    <text class="text-gray text-sm flex justify-between  fote-size text-cut" decode="{{true}}">
+											{{j.description==''?'暂无更多':j.description}}
+										</text>
+                                </view>
+                            </view>
+                        </navigator>
+                    </scroll-view>
+                </view>
+            </view>
+        </view>
+    </view>
+</My>
+<view class="cu-bar tabbar bg-white shadow foot" id="index-menu">
+    <view bindtap="NavChange" class="action text-{{PageCur=='Homepage'?'green':'gray'}}" data-cur="Homepage">
+        <view class="cuIcon-homefill "></view>
+		首页
+	</view>
+    <view bindtap="NavChange" class="action text-{{PageCur=='EQ'?'green':'gray'}}" data-cur="EQ">
+        <view class=".cuIcon-discover"></view>
+		设备
+	</view>
+    <view bindtap="NavChange" class="action text-{{PageCur=='My'?'green':'gray'}}" data-cur="My">
+        <view class="cuIcon-myfill"></view>
+		我的
+	</view>
+</view>
+<view bindtap="hideModal" class="cu-modal {{bluetools=='show'?'show':''}}">
+    <view class="cu-dialog">
+        <view class="cu-bar bg-white justify-end">
+            <view class="content">蓝牙</view>
+        </view>
+        <view class="padding-xl">
+            <view style="font-size:12px">{{bluetoolAtten}}</view>
+        </view>
+    </view>
+</view>
+<view class="cu-modal {{viewShowed=='show'?'show':''}}">
+    <view class="cu-dialog">
+        <view class="cu-bar bg-white justify-end">
+            <view class="content">提示</view>
+        </view>
+        <view class="padding-xl">
+            <view style="font-size:16px">允许使用当前手机号码一键登录</view>
+        </view>
+        <view class="cu-bar bg-white justify-end">
+            <view class="action">
+                <button bindtap="cancle" class="cu-btn line-green text-green">取消</button>
+                <button bindgetphonenumber="getPhoneNumber" class="cu-btn bg-green margin-left" openType="getPhoneNumber">确认</button>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="cu-modal {{errorData.show}}">
+    <view bindtap="close" class="cu-dialog bg-black" style="opacity: 0.9;width:70%">
+        <view style="height: 100px;display: flex;justify-content: center;">
+            <view style="width: 70px;height: 70px;position: relative;top: 15px;">
+                <image src="/images/statuspic/{{errorData.pic}}" style="position:relative;width:100%;height:100%"></image>
+            </view>
+        </view>
+        <view class="{{errorData.disp}}">
+            <view class="flex" style="width: 70%;position: relative;left: 1%;">
+                <view class="cu-progress round">
+                    <view class="bg-green" style="width:{{tipspeed}}%;"></view>
+                </view>
+                <text class="{{tipspeed==100?'cuIcon-roundcheckfill text-green margin-left-sm':'margin-left'}}">{{tipspeed==100?'':tipspeed+'%'}}</text>
+            </view>
+        </view>
+        <view style="height: 30px;font-size: 18px;">
+            <text>{{errorData.text}}</text>
+        </view>
+    </view>
+</view>

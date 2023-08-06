@@ -1,0 +1,61 @@
+.select-box {
+    font-size: 30rpx;
+}
+
+.select-box,.select-current {
+    position: relative;
+    width: 100%;
+}
+
+.select-current {
+    border: 1rpx solid #ddd;
+    border-radius: 6rpx;
+    box-sizing: border-box;
+    line-height: 70rpx;
+    padding: 0 10rpx;
+}
+
+.select-current::after {
+    border: 10rpx solid transparent;
+    border-top-color: #999;
+    content: "";
+    display: block;
+    height: 0;
+    position: absolute;
+    right: 16rpx;
+    top: 30rpx;
+    width: 0;
+}
+
+.current-name {
+    word-wrap: normal;
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    width: 85%;
+}
+
+.option-list {
+    background-color: #fff;
+    border-radius: 6rpx;
+    box-shadow: inset 0rpx 0rpx 1rpx 1rpx rgba(0,0,0,.2);
+    box-sizing: border-box;
+    left: 0;
+    padding: 12rpx 20rpx 10rpx;
+    position: absolute;
+    top: 76rpx;
+    width: 100%;
+    z-index: 99;
+}
+
+.option {
+    border-bottom: 1rpx solid #eee;
+    display: block;
+    line-height: 70rpx;
+    width: 100%;
+}
+
+.option:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}

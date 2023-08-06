@@ -1,0 +1,10 @@
+.Scancodetoy {
+    font-size: 39rpx;
+    position: fixed;
+    width: 100%;
+}
+
+.listcont {
+    height: 500rpx;
+    width: 100%;
+}

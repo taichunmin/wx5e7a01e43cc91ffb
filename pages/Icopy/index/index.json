@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+        "select": "/utils/Component/select/select",
+        "progressView": "/utils/Component/ProgressView/ProgressView",
+        "cu-custom": "../../../colorui/components/cu-custom"
+    }
+}

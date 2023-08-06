@@ -1,0 +1,46 @@
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">表单</view>
+</cu-custom>
+<form bindsubmit="ModifyUserInformation">
+    <view class="cu-form-group">
+        <view class="title">图片</view>
+        <text class="text-cut" name="logoPath" style="width:50%">{{options.logoPath}}</text>
+        <view bindtap="uploadImage" class="cu-btn round bg-blue shadow">上传图片</view>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">英文名称</view>
+        <input name="tittle" placeholder="请输入名称" value="{{options.tittle}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">中文名称</view>
+        <input name="cnTittle" placeholder="请输入名称" value="{{options.cnTittle}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">系列</view>
+        <input name="seriesName" placeholder="请输入系列" value="{{options.seriesName}}"></input>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">BIN文件</view>
+        <text class="text-cut" name="binPath">{{options.binPath}}</text>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">发行日期</view>
+        <picker bindchange="DateChange" mode="date" name="relesaseTime" value="{{options.relesaseTime}}">
+            <view class="picker">
+				{{options.relesaseTime}}
+			</view>
+        </picker>
+    </view>
+    <view class="cu-form-group">
+        <view class="title">发行商</view>
+        <input name="presentedBy" placeholder="请输入发行商" value="{{options.presentedBy}}"></input>
+    </view>
+    <view class="cu-form-group align-start">
+        <view class="title">说明</view>
+        <textarea bindinput="textareaBInput" disabled="{{modalName!=null}}" maxlength="-1" name="description" placeholder="请输入简短的说明" value="{{options.description}}"></textarea>
+    </view>
+    <view style="text-align: center">
+        <button class="cu-btn bg-blue margin-tb-sm lg " formType="submit" style="width: 80%;margin-top: 20px;">确定修改</button>
+    </view>
+</form>

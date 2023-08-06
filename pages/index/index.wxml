@@ -1,0 +1,55 @@
+<component wx:if="{{PageCur=='component'}}">
+    <cu-custom bgColor="bg-{{colour}}" isBack="{{openhome}}">
+        <view slot="backText">返回</view>
+        <view slot="content">福睿鑫</view>
+    </cu-custom>
+    <view class="imagesize ">
+        <swiper autoplay="true" circular="true" class="screen-swiper square-dot" duration="500" indicatorDots="true" interval="5000" style="height: 50vh;">
+            <swiper-item wx:for="{{swiperList}}" wx:key="item">
+                <image mode="aspectFill" src="{{item.wheeloneimage}}" wx:if="{{item.wheeloneuse==1}}"></image>
+            </swiper-item>
+        </swiper>
+    </view>
+    <view class="margin-top">
+        <view bindtap="Jump" class="nav-li " id="/pages/{{item.name}}" style="width: 95%;height:230rpx;margin: 0 2.5% 10rpx;padding: 19rpx 5rpx;" wx:for="{{elements}}" wx:key="item">
+            <image src="{{item.picurl}}" style="width:100%;height:100%"></image>
+        </view>
+    </view>
+</component>
+<view bindtap="hideModal" class="cu-modal {{showtip}}">
+    <view class="cu-dialog">
+        <view class="cu-bar bg-white justify-end">
+            <view class="content">提示</view>
+        </view>
+        <view>
+            <view style="font-size:32rpx">
+                <p style="display:flex;margin-bottom:15rpx;margin:10px 10px 10px 10px;wxcs_style_margin:20rpx 20rpx 20rpx 20rpx;font-weight: bold;">
+                    <span style="margin-bottom:15rpx;">使用小程序的蓝牙功能请确认如下授权：</span>
+                </p>
+                <p style="display:flex;flex-direction:column;text-align:left;margin:0rpx 70rpx 30rpx 70rpx;">
+                    <div style="margin-bottom:15rpx;">
+                        <p>1、</p>
+                        <text>检查微信是否取得手机蓝牙、
+定位的授权。</text>
+                    </div>
+                    <span style="margin-bottom:15rpx;">
+                        <span>2、</span>检查手机蓝牙功能是否开启。</span>
+                    <span style="margin-bottom:15rpx;">
+                        <span>3、</span>检查手机定位功能是否开启。</span>
+                    <span style="margin-bottom:15rpx;">
+                        <span>4、</span>
+                        <text>检查电脑端软件没有连接设备
+(电脑软件与小程序二选一)</text>
+                    </span>
+                    <span>
+                        <span>4、</span>使用异常时请重启微信并重启设备再试。</span>
+                </p>
+            </view>
+        </view>
+        <view class="cu-bar bg-white justify-end" style="justify-content: center;">
+            <view class="action">
+                <button bindtap="hidetip" class="cu-btn bg-blue margin-left" style="width: 100px;">关 闭</button>
+            </view>
+        </view>
+    </view>
+</view>

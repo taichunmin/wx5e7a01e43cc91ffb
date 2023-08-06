@@ -1,0 +1,10 @@
+.customone {
+    margin: 0rpx 0rpx 0rpx 20rpx;
+}
+
+.selectpopup_bg {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}

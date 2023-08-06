@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "selectpopup": "../../../../utils/Component/select/select",
+        "cu-custom": "../../../../colorui/components/cu-custom"
+    }
+}

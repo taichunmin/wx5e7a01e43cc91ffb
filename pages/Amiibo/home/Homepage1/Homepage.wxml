@@ -1,0 +1,90 @@
+<cu-custom bgColor="bg-gradual-blue" id="home-init" isBack="{{true}}">
+    <view slot="backText">返回上级</view>
+    <view slot="content">{{options.name}}</view>
+</cu-custom>
+<view class="kind-list-item" wx:for="{{list}}" wx:key="id">
+    <view class="kind-list-item-bd {{item.open?'kind-list-item-bd-show':''}}">
+        <view class="navigator-box {{item.open?'navigator-box-show':''}}">
+            <view class="cu-card case" data-cur="plugin" hoverClass="none" openType="navigate">
+                <view class="cu-item shadow">
+                    <view class="image" style="padding: 20rpx">
+                        <view style="width: 100%;height: 7vh;"></view>
+                        <view class="ercu-avat" style="background-image:url({{MapList.logoPath}});"></view>
+                        <view class=" text-cut text-black customone" style="font-size: 38rpx;">{{MapList.tittle==''?'暂无更多':MapList.tittle}}</view>
+                        <text class="text-gray text-sm flex justify-between customone fote-size" decode="{{true}}">
+                          系&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;列:&nbsp;&nbsp;<text class="text-black">{{MapList.seriesName==''?'暂无更多':MapList.seriesName}}</text>
+                        </text>
+                        <text class="text-gray text-sm flex justify-between customone fote-size" decode="{{true}}">
+                          发行日期:&nbsp;&nbsp;<text class="text-black">{{MapList.relesaseTime==''?'暂无更多':MapList.relesaseTime}}</text>
+                        </text>
+                        <text class="text-gray text-sm flex justify-between customone fote-size" decode="{{true}}">
+                          发&nbsp;&nbsp;行&nbsp;&nbsp;商:&nbsp;&nbsp;<text class="text-black">{{MapList.presentedBy==''?'暂无更多':MapList.presentedBy}}</text>
+                        </text>
+                    </view>
+                    <view class="cu-list menu-avatar">
+                        <view class="cusent">
+                            <view class="flex-sub" style="margin: 0rpx 30rpx 0 ">
+                                <view class=" ite text-gray text-sm flex justify-between fote-size">
+										{{MapList.description==''?'暂无更多':MapList.description}}
+									</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="cu-bar search bg-white" id="home-text" style="position:fixed;top:{{init}}px;width: 100%;positon:relative;">
+    <view class="search-form round">
+        <text class="cuIcon-search"></text>
+        <input bindinput="watchPassWord" confirmType="search" placeholder="输入名称查询" type="text"></input>
+    </view>
+    <view bindtap="kindToggle" class="action" id="content">
+        <view class="cuIcon-{{open?'unfold':'right'}}"></view>
+    </view>
+</view>
+<scroll-view scrollY bindrefresherrefresh="sunmmmm" bindscroll="layoutScroll" bindscrolltolower="bindrefre" lowerThreshold="0" refresherEnabled="true" style="padding: 120rpx 30rpx 30rpx 30rpx;height:{{swiperHeight}}px;">
+    <navigator class="cu-card case " data-id="{{index}}" hoverClass="none" openType="navigate" url="/pages/Amiibo/home/Homepage1/HomeInit?id={{j.id}}&serviceid=" wx:for="{{ArrayList.amiiboList}}" wx:for-item="j" wx:key="unique">
+        <view class="flex  p-xs margin-bottom-sm mb-sm bg-white" style="border-radius: 30rpx;">
+            <view class="flex-sub  padding-sm margin-xs radius">
+                <image src="{{j.logoPath}}" style="height: 100px;width: 80px;"></image>
+            </view>
+            <view class="flex-twice padding-sm margin-xs radius" style="width: 50%;">
+                <view class="text-cut " style="font-size: 38rpx;">{{j.tittle==''?'暂无更多':j.tittle}}</view>
+                <text class="text-gray text-sm flex justify-between  fote-size" decode="{{true}}">
+                          系&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;列:&nbsp;&nbsp;<text class="text-gray">{{j.seriesName==''?'暂无更多':j.seriesName}}</text>
+                </text>
+                <text class="text-gray text-sm flex justify-between  fote-size" decode="{{true}}">
+                          发行日期:&nbsp;&nbsp;<text class="text-gray">{{j.relesaseTime==''?'暂无更多':j.relesaseTime}}</text>
+                </text>
+                <text class="text-gray text-sm flex justify-between  fote-size" decode="{{true}}">
+                          发&nbsp;&nbsp;行&nbsp;&nbsp;商:&nbsp;&nbsp;<text class="text-gray">{{j.presentedBy==''?'暂无更多':j.presentedBy}}</text>
+                </text>
+                <text class="text-gray text-sm flex justify-between  fote-size text-cut" decode="{{true}}">
+						{{j.description==''?'暂无更多':j.description}}
+						</text>
+            </view>
+        </view>
+    </navigator>
+</scroll-view>
+<view class="cu-modal {{errorData.show}}">
+    <view bindtap="close" class="cu-dialog bg-black" style="opacity: 0.9;width:70%">
+        <view style="height: 100px;display: flex;justify-content: center;">
+            <view style="width: 70px;height: 70px;position: relative;top: 15px;">
+                <image src="/images/statuspic/{{errorData.pic}}" style="position:relative;width:100%;height:100%"></image>
+            </view>
+        </view>
+        <view class="{{errorData.disp}}">
+            <view class="flex" style="width: 70%;position: relative;left: 1%;">
+                <view class="cu-progress round">
+                    <view class="bg-green" style="width:{{tipspeed}}%;"></view>
+                </view>
+                <text class="{{tipspeed==100?'cuIcon-roundcheckfill text-green margin-left-sm':'margin-left'}}">{{tipspeed==100?'':tipspeed+'%'}}</text>
+            </view>
+        </view>
+        <view style="height: 30px;font-size: 18px;">
+            <text>{{errorData.text}}</text>
+        </view>
+    </view>
+</view>

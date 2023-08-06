@@ -1,0 +1,263 @@
+.customone {
+    margin: 5rpx 0rpx 20rpx 20rpx;
+}
+
+.ite {
+    word-wrap: break-word;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal!important;
+}
+
+.device-img {
+    height: 202rpx;
+    width: 100rpx;
+}
+
+.userinfo {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-li {
+    width: 100%;
+}
+
+.userinfo-avatar {
+    border-radius: 50%;
+    height: 128rpx;
+    margin: 20rpx;
+    width: 128rpx;
+}
+
+.userinfo-nickname {
+    color: #aaa;
+}
+
+.usermotto {
+    margin-top: 200px;
+}
+
+.slide-image {
+    width: 100%;
+}
+
+.imagesize {
+    margin: 0rpx 0rpx 10rpx;
+}
+
+.cu-bar tabbar margin-bottom-xl bg-black {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+}
+
+.placeholder-view {
+    height: 700rpx;
+    width: 100%;
+}
+
+.cu-bar tabbar bg-white shadow foot {
+    margin-bottom: 200rpx;
+}
+
+.listcont {
+    height: 100rpx;
+    width: 100%;
+}
+
+.personalMe {
+    background-color: #fff;
+    height: 210rpx;
+    margin: 30rpx 0rpx;
+}
+
+.personalInfo {
+    float: left;
+    margin: 20rpx 0rpx 0rpx 20rpx;
+}
+
+.personalInfo text {
+    display: block;
+    height: 70rpx;
+    line-height: 70rpx;
+}
+
+.personalList {
+    background-color: #fff;
+    padding: 0rpx 20rpx;
+}
+
+.personalList view {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    height: 70rpx;
+    line-height: 70rpx;
+}
+
+.personalList span {
+    color: #ddd;
+    float: right;
+    font-size: 40rpx;
+    margin-top: -63rpx;
+}
+
+.personalList view {
+    position: relative;
+}
+
+.iconfont {
+    font-size: 14px;
+}
+
+.personalList view:before {
+    color: #b02923;
+    font-size: 20px!important;
+    font-weight: 700;
+    padding-right: 10rpx;
+    text-align: center;
+    vertical-align: top;
+}
+
+.personalList view:after {
+    border-color: #ccc;
+    border-style: solid;
+    border-width: 1px 1px 0 0;
+    content: "";
+    display: block;
+    height: 10px;
+    position: absolute;
+    right: 6px;
+    top: 10px;
+    transform: rotate(45deg);
+    width: 10px;
+}
+
+.ercu-avat {
+    align-items: center;
+    background-position: 50%;
+    background-size: cover;
+    display: inline-flex;
+    font-size: 1.5em;
+    font-variant: small-caps;
+    height: 30vh;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.float {
+    background-color: rgba(0,0,0,.5);
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+}
+
+.floatContent {
+    align-items: center;
+    background: #fff;
+    border-radius: 20rpx;
+    display: flex;
+    flex-direction: column;
+    height: 255rpx;
+    justify-content: space-around;
+    margin: 40% auto;
+    position: relative;
+    width: 80%;
+}
+
+.floatContent text {
+    border-radius: 30rpx;
+    color: #000;
+    display: block;
+    font-size: 40rpx;
+    margin: 0 auto;
+    position: absolute;
+    top: 50rpx;
+}
+
+.floatText {
+    bottom: 0;
+    display: flex;
+    height: 100rpx;
+    justify-content: flex-start;
+    position: absolute;
+    width: 75%;
+}
+
+.btn-cancle {
+    border-radius: none;
+    flex: 1;
+    line-height: 100rpx;
+    margin: 0;
+    padding: 0;
+}
+
+.zan-dialog__mask {
+    background: transparent;
+    background: rgba(0,0,0,.4);
+    bottom: 0;
+    display: none;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 10;
+}
+
+.zan-dialog__container {
+    background: #f8f8f8;
+    border-radius: 20rpx;
+    bottom: 400rpx;
+    box-shadow: 0 3px 3px 2px #dcdcdc;
+    height: 350rpx;
+    margin-left: 50rpx;
+    position: fixed;
+    transform: translateY(300%);
+    transition: all .4s ease;
+    width: 650rpx;
+    z-index: 12;
+}
+
+.zan-dialog--show .zan-dialog__container {
+    transform: translateY(0);
+}
+
+.zan-dialog--show .zan-dialog__mask {
+    display: block;
+}
+
+.btn1 {
+    align-items: center;
+    background-color: #deb887;
+    border-radius: 98rpx;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20rpx;
+    width: 80%;
+}
+
+.clientserver {
+    height: 80px;
+    position: relative;
+    text-align: center;
+    top: 50px;
+}
+
+.removeborder::after {
+    border: none;
+}

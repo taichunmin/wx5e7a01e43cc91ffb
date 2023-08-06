@@ -1,0 +1,4 @@
+<view class="canvasView" hidden="{{hide}}">
+    <canvas canvasId="circleBar" style="width:{{width}}rpx;height:{{height}}rpx;"></canvas>
+    <text hidden="{{!showText}}" style="position: fixed;font-size:{{textSize}}rpx;color:{{textColor}}">{{percentage}}%</text>
+</view>
